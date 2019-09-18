@@ -10,6 +10,6 @@
     },
     "author": "oğulcan arabaci",
     "dependencies": {
-        "newman": "^3.5.2"
+        "newman": "5.5.1"
     }
 }
