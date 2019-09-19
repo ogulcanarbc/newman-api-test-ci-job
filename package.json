@@ -5,9 +5,10 @@
     "directories": {
         "test": "tests"
     },
-    "scripts": {
-        "api-tests-ci-demo": "newman run dog-api.json --reporters cli,junit --reporter-junit-export newman.xml"
-    },
+    "scripts":{
+        "api-tests-ci-demo": "newman run dog-api.json --reporters cli,junit --reporter-junit-export newman.xml",
+        "api-tests-ci-demo2": "newman run dog-api.json --reporters cli,junit --reporter-junit-export newman.xml"
+   },
     "author": "oğulcan arabaci",
     "dependencies": {
         "newman": "5.5.1"
