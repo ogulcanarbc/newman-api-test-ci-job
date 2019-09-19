@@ -6,40 +6,88 @@
 	},
 	"item": [
 		{
-			"name": "https://dog.ceo/api/breeds/image/random",
-			"event": [
+			"name": "dogApiReturn200Success",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "29e89f54-cc7f-4911-b52c-3093899cd2b9",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
+					"name": "https://dog.ceo/api/breeds/image/random",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29e89f54-cc7f-4911-b52c-3093899cd2b9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dog.ceo/api/breeds/image/random",
+							"protocol": "https",
+							"host": [
+								"dog",
+								"ceo"
+							],
+							"path": [
+								"api",
+								"breeds",
+								"image",
+								"random"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://dog.ceo/api/breeds/image/random",
-					"protocol": "https",
-					"host": [
-						"dog",
-						"ceo"
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "dogApiReturn200Fail",
+			"item": [
+				{
+					"name": "https://dog.ceo/api/breeds/image/random",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29e89f54-cc7f-4911-b52c-3093899cd2b9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"path": [
-						"api",
-						"breeds",
-						"image",
-						"random"
-					]
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dog.ceo/api/breeds/image/random",
+							"protocol": "https",
+							"host": [
+								"dog",
+								"ceo"
+							],
+							"path": [
+								"api",
+								"breeds",
+								"image",
+								"random"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
