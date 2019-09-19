@@ -6,12 +6,9 @@
         "test": "tests"
     },
     "scripts": {
-        "api-tests-ci-demo": "newman run dog-api.json --reporters cli,junit --reporter-junit-export newman.xml"
-        
-    },
-    "scripts": {
-        "api-tests-ci-demo2": "newman run dog-api-2.json --reporters cli,junit --reporter-junit-export newman.xml"
-        
+        "api-tests-ci-demo": "newman run dog-api.json --reporters cli,junit --reporter-junit-export newman.xml",
+        "api-tests-ci-dem2o": "newman run dog-api2.json --reporters cli,junit --reporter-junit-export newman.xml",
+
     },
     "author": "oğulcan arabaci",
     "dependencies": {
