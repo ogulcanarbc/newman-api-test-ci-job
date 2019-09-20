@@ -8,7 +8,7 @@
     "scripts":{
         "case1":"newman run dog-api.json",
         "case2":"newman run dog-api.json",
-        "api-tests-ci-demo": "npm-run-all case1 case2"
+        "api-tests-ci-demo": "npm-run-all -s case1 case2"
    },
     "author": "oğulcan arabaci",
     "dependencies": {
