@@ -1,0 +1,1127 @@
+{
+	"info": {
+		"_postman_id": "979cd7d5-0645-4b8c-8f60-5d72474a9485",
+		"name": "TekYönTicket",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Prep Tek Yön Ticket",
+			"item": [
+				{
+					"name": "Prep Token Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ceb861f-a8c5-4a41-9e26-e182adad6417",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setGlobalVariable(\"PREP_TOKEN\",jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "account"
+								},
+								{
+									"key": "client_secret",
+									"value": "08b8e62f-132f-4e86-8033-cb4a36b9ca30"
+								},
+								{
+									"key": "username",
+									"value": "INTERNET"
+								},
+								{
+									"key": "password",
+									"value": "SA"
+								},
+								{
+									"key": "grant_type",
+									"value": "password"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://testsso.flypgs.com/auth/realms/PREP-PAX/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"testsso",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"auth",
+								"realms",
+								"PREP-PAX",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prep FF Token Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ceb861f-a8c5-4a41-9e26-e182adad6417",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setGlobalVariable(\"FFTOKENPREP\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "account",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "af45b9eb-96a9-49fe-8d16-dc58c6aff204",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "905301576819",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "001111",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://testsso.flypgs.com/auth/realms/PREP-FF/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"testsso",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"auth",
+								"realms",
+								"PREP-FF",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Availability",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a2fbd190-952f-4d4b-9c4e-80091498a180",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6a195f7f-6e00-4510-8a90-5b569756a8f2",
+								"exec": [
+									"\r",
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setGlobalVariable(\"segId\",jsonData[0].availableFlights[0].segmentId);\r",
+									"postman.setGlobalVariable(\"fbCode\",jsonData[0].availableFlights[0].availableFares[0].fareBasisCode);\r",
+									"postman.setGlobalVariable(\"tariffFareId\",jsonData[0].availableFlights[0].availableFares[0].tariffFareId);\r",
+									"postman.setGlobalVariable(\"bundleId\",jsonData[0].availableFlights[0].availableFares[0].bundleInfo[0].bundleId);\r",
+									"postman.setGlobalVariable(\"rezClass\",jsonData[0].availableFlights[0].availableFares[0].rezClass);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "DE"
+							},
+							{
+								"key": "session-id",
+								"value": "cengizhan"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"availableFlightRequestList\":\r\n\t[\r\n\t\t{\r\n\t\t\t\"depPort\":\"SAW\",\r\n\t\t\t\t\"arrPort\":\"ADA\",\r\n\t\t\t\"flightDate\":\"2019-10-15\"\r\n\t\t}\r\n\t],\r\n\t\"currency\":\"TRY\",\r\n\t\"adultCount\":1,\r\n\t\"childCount\":0,\r\n\t\"infantCount\":0,\r\n\t\"soldierCount\":0,\r\n\t\"studentCount\":0,\r\n\t\"dateOption\":0,\r\n\t\"personnelPnr\":false,\r\n\t\"ffRedemption\":false,\r\n\t\"openFlightSearch\":false,\r\n\t\"opsCode\":\"TK\"\r\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-avail.flypgs.com/crane-availability/availability",
+							"protocol": "https",
+							"host": [
+								"bfprep-avail",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-availability",
+								"availability"
+							]
+						},
+						"description": "flexFare local"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateEasyPNR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8bbfd90b-859d-4123-939b-849e1361622c",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"pnrId\", jsonData.pnrId);",
+									"postman.setGlobalVariable(\"paxId\", jsonData.paxInfoList[0].paxId);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "DE"
+							},
+							{
+								"key": "session-id",
+								"value": "cengizhan"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"reservationFlightList\":[\r\n    {\r\n      \"segmentId\":\"{{segId}}\",\r\n      \"tariffFareId\":\"{{tariffFareId}}\",\r\n      \"depFlt\":true,\r\n      \"fareBasisCode\":\"{{fbCode}}\",\r\n      \"addOn\":false,\r\n      \"rezClass\":\"{{rezClass}}\",\r\n      \"bundleId\":\"{{bundleId}}\"\r\n    }\r\n  ],\r\n  \"adultCount\":1,\r\n  \"childCount\":0,\r\n  \"infantCount\":0,\r\n  \"soldierCount\":0,\r\n  \"studentCount\":0\r\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-rezv.flypgs.com/crane-reservation/pnr/easyPnr",
+							"protocol": "https",
+							"host": [
+								"bfprep-rezv",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-reservation",
+								"pnr",
+								"easyPnr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateEasyPNR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4edac92e-4a9a-4ba0-a758-bd9ca6893cd8",
+								"exec": [
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setGlobalVariable(\"pnrLegId\",jsonData.segmentList[0].pnrLegId);\r",
+									"postman.setGlobalVariable(\"segId\",jsonData.segmentList[0].segmentId);\r",
+									"postman.setGlobalVariable(\"surname\",jsonData.passengerList[0].paxSurname);\r",
+									"postman.setGlobalVariable(\"pnrId\",jsonData.passengerList[0].pnrId);\r",
+									"postman.setGlobalVariable(\"paxId\",jsonData.passengerList[0].paxId);\r",
+									"postman.setGlobalVariable(\"pnrSsrId\",jsonData.ssrList[0].pnrSsrId);\r",
+									"postman.setGlobalVariable(\"pnrNo\",jsonData.pnrCursor.pnrNo);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "TR"
+							},
+							{
+								"key": "session-id",
+								"value": "cengizhan"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"pnrId\":\"{{pnrId}}\",\n\t\"contactPerson\":\"Cengizhan\",\n\t\"contactPersonEmail\":\"cengizhan.yilmaz@testinium.com\",\n\t\"contactPersonPhoneNumber\":{\n\t\t\"phoneCountryCode\":\"90\",\n\t\t\"phoneAreaCode\":\"530\",\n\t\t\"phoneNumber\":\"1576819\"\n\t},\n\t\"contactPersonCountry\":\"TR\",\n\t\"passengerList\":[\n\t\t{\n\t\t\t\"paxId\":\"{{paxId}}\",\n\t\t\t\"birthDate\":\"1993-12-25\",\n\t\t\t\"name\":\"cengizhan\",\n\t\t\t\"surname\":\"yılmaz\",\n\t\t\t\"gender\":\"M\",\n\t\t\t\"nationalId\":\"11223344000\"\n\t\t}\n\t\t\n\t],\n\t\"personnelPnr\":false\n\t\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-rezv.flypgs.com/crane-reservation/pnr/easyPnr",
+							"protocol": "https",
+							"host": [
+								"bfprep-rezv",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-reservation",
+								"pnr",
+								"easyPnr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TicketCalculate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bb6aa8cf-7149-4e92-81b4-369daf566984",
+								"exec": [
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"for(var i =0;i<jsonData.paymentAmounts.length;i++){",
+									"    if(jsonData.paymentAmounts[i].paymentType==\"TOTAL_PAYMENT_AMOUNT\"){",
+									"        postman.setGlobalVariable(\"totalAmount\",jsonData.paymentAmounts[i].amount.amount);        ",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "DE"
+							},
+							{
+								"key": "session-id",
+								"value": "cengizhan"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"discountCode\": \"\",\r\n\t\"discountPin\": \"\",\r\n\t\"paymentCurrency\":\"TRY\",\r\n\t\"pnrId\":\"{{pnrId}}\"\r\n\r\n}\r\n"
+						},
+						"url": {
+							"raw": "https://bfprep-ticketing.flypgs.com/crane-ticketing/pnr/ticket/calculate",
+							"protocol": "https",
+							"host": [
+								"bfprep-ticketing",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-ticketing",
+								"pnr",
+								"ticket",
+								"calculate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bıncode",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4a2b13ad-96d0-46fc-b0e8-c7158f6981e1",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"orderId\", jsonData.results[0].orderId);",
+									"postman.setGlobalVariable(\"paymentOptionId\", jsonData.results[0].paymentOptionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "DE"
+							},
+							{
+								"key": "session-id",
+								"value": "cengizhan"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"creditCardPayment\": {\r\n  \"paymentOptionId\": \"MTc2MjA=\",\r\n  \"holder\": \"Holder Name\",\r\n  \"number\": \"4242424242424242\",\r\n  \"expireDateMonth\": \"10\",\r\n  \"expireDateYear\": \"2019\",\r\n  \"cvv\": \"4242\",\r\n  \"amount\": {{totalAmount}}\r\n }, \r\n \"operation\":\"SellPnr\",\r\n \"pnrId\":\"{{pnrId}}\",\r\n \"redirectClientUrl\": \"https://paytest.flypgs.com:8443/crane-payment/gateway-receiver\"\r\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-payment.flypgs.com/crane-payment/authorizePayment",
+							"protocol": "https",
+							"host": [
+								"bfprep-payment",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-payment",
+								"authorizePayment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AuthPayment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4a2b13ad-96d0-46fc-b0e8-c7158f6981e1",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"orderId\", jsonData.results[0].orderId);",
+									"postman.setGlobalVariable(\"paymentOptionId\", jsonData.results[0].paymentOptionId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "DE"
+							},
+							{
+								"key": "session-id",
+								"value": "cengizhan"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"creditCardPayment\": {\r\n  \"paymentOptionId\": \"MTc2MjA=\",\r\n  \"holder\": \"Holder Name\",\r\n  \"number\": \"4242424242424242\",\r\n  \"expireDateMonth\": \"10\",\r\n  \"expireDateYear\": \"2019\",\r\n  \"cvv\": \"4242\",\r\n  \"amount\": {{totalAmount}}\r\n }, \r\n \"operation\":\"SellPnr\",\r\n \"pnrId\":\"{{pnrId}}\",\r\n \"redirectClientUrl\": \"https://paytest.flypgs.com:8443/crane-payment/gateway-receiver\"\r\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-payment.flypgs.com/crane-payment/authorizePayment",
+							"protocol": "https",
+							"host": [
+								"bfprep-payment",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-payment",
+								"authorizePayment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TicketPNR",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c1671264-7b8d-483d-81c9-5e262df54e6c",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"postman.setGlobalVariable(\"ticketNo\", jsonData[0].ticketNo);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "DE"
+							},
+							{
+								"key": "session-id",
+								"value": "cengizhan"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ffRedemption\":false,\r\n  \"paymentCurrency\":\"TRY\",\r\n  \"pnrId\":\"{{pnrId}}\" ,\r\n  \"paymentInfoList\":[  \r\n      {  \r\n         \"monetaryAmount\":{  \r\n            \"amount\":{{totalAmount}},\r\n            \"currency\":\"TRY\"\r\n         },\r\n         \"orderId\":\"{{orderId}}\",\r\n         \"paymentOptionId\":\"{{paymentOptionId}}\"\r\n      }\r\n ],\r\n \r\n  \"discountPin\": \"\",\r\n \"discountCode\": \"\"\r\n \r\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-ticketing.flypgs.com/crane-ticketing/pnr/ticket",
+							"protocol": "https",
+							"host": [
+								"bfprep-ticketing",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-ticketing",
+								"pnr",
+								"ticket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve PNR By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5c46ebe5-a33a-428c-98d0-b811c51a98b1",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"pnrLegId\",jsonData.segmentList[0].pnrLegId);\r",
+									"postman.setGlobalVariable(\"pnrId\",jsonData.passengerList[0].pnrId);\r",
+									"postman.setEnvironmentVariable(\"segId\",jsonData.segmentList[0].segmentId);\r",
+									"postman.setEnvironmentVariable(\"surname\",jsonData.passengerList[0].paxSurname);\r",
+									"postman.setEnvironmentVariable(\"paxId\",jsonData.passengerList[0].paxId);\r",
+									"postman.setEnvironmentVariable(\"pnrSsrId\",jsonData.ssrList[0].pnrSsrId);\r",
+									"postman.setEnvironmentVariable(\"pnrNo\",jsonData.pnrCursor.pnrNo);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "TR"
+							},
+							{
+								"key": "session-id",
+								"value": "INTERNET"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://bfprep-rezv.flypgs.com/crane-reservation/pnr/id/NTEwNjIyNzI2",
+							"protocol": "https",
+							"host": [
+								"bfprep-rezv",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-reservation",
+								"pnr",
+								"id",
+								"NTEwNjIyNzI2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve PNR By PNR and Surname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5c46ebe5-a33a-428c-98d0-b811c51a98b1",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"pnrLegId\",jsonData.segmentList[0].pnrLegId);\r",
+									"postman.setGlobalVariable(\"pnrId\",jsonData.passengerList[0].pnrId);\r",
+									"postman.setEnvironmentVariable(\"segId\",jsonData.segmentList[0].segmentId);\r",
+									"postman.setEnvironmentVariable(\"surname\",jsonData.passengerList[0].paxSurname);\r",
+									"postman.setEnvironmentVariable(\"paxId\",jsonData.passengerList[0].paxId);\r",
+									"postman.setEnvironmentVariable(\"pnrSsrId\",jsonData.ssrList[0].pnrSsrId);\r",
+									"postman.setEnvironmentVariable(\"pnrNo\",jsonData.pnrCursor.pnrNo);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "TR"
+							},
+							{
+								"key": "session-id",
+								"value": "INTERNET"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://bfprep-rezv.flypgs.com/crane-reservation/pnr/A7TB7T?surname=yılmaz",
+							"protocol": "https",
+							"host": [
+								"bfprep-rezv",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-reservation",
+								"pnr",
+								"A7TB7T"
+							],
+							"query": [
+								{
+									"key": "surname",
+									"value": "yılmaz"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Discount Availability",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5cbf5222-5f70-455a-adda-adaf70eccf68",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"pm.test(\"PaymentAmounts lenght is null\", function () {",
+									"    var jsonData = pm.response.json();",
+									"   jsonData.paymentAmounts.lenght !== undefined;",
+									"   ",
+									"   for(var i =0;i<jsonData.paymentAmounts.length;i++){",
+									"    if(jsonData.paymentAmounts[i].paymentType==\"TOTAL_PAYMENT_AMOUNT\"){",
+									"        postman.setGlobalVariable(\"totalAmount\",jsonData.paymentAmounts[i].amount.amount);        ",
+									"    }",
+									"}",
+									"    ",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "TR"
+							},
+							{
+								"key": "session-id",
+								"value": "INTERNET"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"lastSelectedDiscount\": \"\",\n  \"pnrId\": \"{{pnrId}}\"\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-ticketing.flypgs.com/crane-ticketing/discount/availability",
+							"protocol": "https",
+							"host": [
+								"bfprep-ticketing",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-ticketing",
+								"discount",
+								"availability"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate SSR Fare",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "217491bb-f415-4a6c-9883-c1aee5a61699",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"for(var i =0;i<jsonData.length;i++){",
+									"    if(jsonData[i].paymentType==\"TOTAL_PAYMENT_AMOUNT\"){",
+									"        postman.setEnvironmentVariable(\"totalAmount\",jsonData[i].amount.amount);        ",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "TR"
+							},
+							{
+								"key": "session-id",
+								"value": "imge-imge"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ffRedemption\": false,\r\n  \"paymentCurrency\": \"TRY\",\r\n  \"pnrId\": \"{{pnrId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-ssr.flypgs.com/crane-ssr/ssr/calculate",
+							"protocol": "https",
+							"host": [
+								"bfprep-ssr",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-ssr",
+								"ssr",
+								"calculate"
+							]
+						},
+						"description": "Used for calculating SSR fares. Total ssr fare is calculated for sell SSR."
+					},
+					"response": []
+				},
+				{
+					"name": "Add SSR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "TR"
+							},
+							{
+								"key": "session-id",
+								"value": "imge-imge"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"paxId\": \"{{paxId}}\",\r\n    \"pnrId\": \"{{pnrId}}\",\r\n    \"segmentId\": \"{{segId}}\",\r\n    \"ssrCode\": \"SLDC\",\r\n    \"ssrExplanation\": \"S\",\r\n    \"ssrGroup\": \"CATERING\"\r\n\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "https://bfprep-ssr.flypgs.com/crane-ssr/ssr/add",
+							"protocol": "https",
+							"host": [
+								"bfprep-ssr",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-ssr",
+								"ssr",
+								"add"
+							]
+						},
+						"description": "Used for adding SSR to PNR"
+					},
+					"response": []
+				},
+				{
+					"name": "Sell SSR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "TR"
+							},
+							{
+								"key": "session-id",
+								"value": "imge-imge"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ffRedemption\": false,\r\n  \"paymentCurrency\": \"TRY\",\r\n   \"paymentInfoList\":[\r\n      {  \r\n         \"monetaryAmount\":{  \r\n            \"amount\":\"{{totalAmount}}\",\r\n            \"currency\":\"TRY\"\r\n         },\r\n         \"orderId\":\"{{orderId}}\",\r\n         \"paymentOptionId\":\"{{paymentOptionId}}\"\r\n      }\r\n\t],\r\n  \"pnrId\": \"{{pnrId}}\"\r\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-ssr.flypgs.com/crane-ssr/ssr/sell",
+							"protocol": "https",
+							"host": [
+								"bfprep-ssr",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-ssr",
+								"ssr",
+								"sell"
+							]
+						},
+						"description": "Used for selling ssr. Returns, ticketNumber of SSRs."
+					},
+					"response": []
+				},
+				{
+					"name": "CheckSellPnr",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "468e3d6b-b0b0-4dc3-ba04-6965db7df5c8",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"for(var i =0;i<jsonData.paymentAmounts.length;i++){",
+									"    if(jsonData.paymentAmounts[i].paymentType==\"TOTAL_PAYMENT_AMOUNT\"){",
+									"        postman.setEnvironmentVariable(\"totalAmount\",jsonData.paymentAmounts[i].amount.amount);        ",
+									"    }",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "LANG",
+								"value": "TR"
+							},
+							{
+								"key": "session-id",
+								"value": "imge-imge"
+							},
+							{
+								"key": "client-ip",
+								"value": "10.1.1.149"
+							},
+							{
+								"key": "kc-token",
+								"value": "{{PREP_TOKEN}}"
+							},
+							{
+								"key": "ff-token",
+								"value": "{{FFTOKENPREP}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"pnrId\": \"NDI1MTg4ODAy\"\r\n}"
+						},
+						"url": {
+							"raw": "https://bfprep-ticketing.flypgs.com/crane-ticketing/pnr/check-sellable",
+							"protocol": "https",
+							"host": [
+								"bfprep-ticketing",
+								"flypgs",
+								"com"
+							],
+							"path": [
+								"crane-ticketing",
+								"pnr",
+								"check-sellable"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
