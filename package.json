@@ -9,7 +9,7 @@
         "case1":"newman run -- dog-api.json",
         "case2":"newman run -x dog-api.json",
         "deneme":"newman run TekYönTicket.postman_collection.json",
-        "api-tests-ci-demo": "run-s case1 ca    se2"
+        "api-tests-ci-demo": "npm-run-all -s case1 case2"
    },
     "author": "oğulcan arabaci",
     "dependencies": {
